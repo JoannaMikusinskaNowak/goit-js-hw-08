@@ -14,9 +14,14 @@ function saveTimeLocalStorage(player, delay) {
     });
   };
   const throttleSaveTime = throttle(saveTime, delay);
-
   player.on('timeupdate', throttleSaveTime);
 }
+function getCurrentTime() {
+  return player.getCurrentTime();
+}
+
+const currentTime = getCurrentTime();
+console.log('Bieżący czas odtwarzania:', currentTime);
 
 function setTimeThrottle(player, delay) {
   player.on('play', function () {
@@ -28,6 +33,7 @@ function setTimeThrottle(player, delay) {
       player
         .setCurrentTime(seekTime)
         .then(function (seconds) {
+          currentTime = seconds;
           // seconds = the actual time that the player seeked to
         })
         .catch(function (error) {
