@@ -13,14 +13,8 @@ function saveFormState() {
 }
 const throttleSaveFormState = throttle(saveFormState, 500);
 
-form.elements.email.addEventListener('input', function () {
-  throttleSaveFormState();
-});
-form.elements.message.addEventListener('input', function () {
-  throttleSaveFormState();
-});
-
-window.addEventListener('DOMContentLoaded', loadFormState);
+form.elements.email.addEventListener('input', throttleSaveFormState);
+form.elements.message.addEventListener('input', throttleSaveFormState);
 
 function loadFormState() {
   const savedFormState = localStorage.getItem(LOCALSTORAGE_KEY);
